@@ -1,0 +1,23 @@
+{
+  "name": "traxie-core",
+  "version": "1.0.0",
+  "description": "NodeJS server application for Traxie.",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/patrickbagacina/traxie-core.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/patrickbagacina/traxie-core/issues"
+  },
+  "homepage": "https://github.com/patrickbagacina/traxie-core#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "nodemon": "^2.0.12"
+  }
+}
