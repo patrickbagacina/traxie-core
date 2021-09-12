@@ -51,6 +51,9 @@ const register = (req, res) => {
           data: data
         });
       }
+    })
+    .catch(err => {
+      console.log(`Error >> `, err);
     });
 }
 
