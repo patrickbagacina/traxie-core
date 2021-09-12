@@ -1,9 +1,12 @@
 const Manager = require('../models/manager');
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
 
-module.exports.register = (req) => {
+module.exports.register = async (req) => {
+  const hashed = await bcrypt.hash(req.password, saltRounds);
   const manager = new Manager({
-    email: 'test@123',
-    password: 'test'
+    email: req.email,
+    password: hashed
   });
 
   return manager.save();
