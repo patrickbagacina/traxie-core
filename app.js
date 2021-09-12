@@ -1,5 +1,7 @@
-const express =require('express');
+const express = require('express');
 const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
+require('dotenv/config');
 
 const app = express();
 
@@ -14,9 +16,22 @@ app.use(function(req, res, next) {
   next();
 });
 
-app.listen('4000');
-console.log(`Listening on port: 4000, wait for the development server to be up...`);
+// connect to mongoose
+const options = {useNewUrlParser: true, useUnifiedTopology: true}
+const mongo = mongoose.connect(process.env.DATABASE_URL, options);
+mongo.then(() => {
+    console.log('connected to mongoose');
+}, error => {
+    console.log(error, 'error');
+});
+
+app.get('/', (req, res) => res.send('Welcome to Traxie Core'));
+
+// TODO: Validate JWT - Auth
+
+app.listen(process.env.PORT);
+console.log(`Listening on port: ${process.env.PORT}, wait for the development server to be up...`);
 
 // set routes
 const routes = require('./controllers/routes');
-app.use(routes);
+app.use('/api', routes);

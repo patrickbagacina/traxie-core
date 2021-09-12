@@ -2,9 +2,9 @@ const express = require('express'),
   router = express.Router();
 
 // controllers
-const accountsCtrl = require('./accounts-controller');
+const usersCtrl = require('./users-controller');
 
-// accounts routes
-router.post('/accounts/register', accountsCtrl.register);
+// users routes
+router.post('/users/register', usersCtrl.register);
 
 module.exports = router;
