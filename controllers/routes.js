@@ -4,13 +4,17 @@ const express = require('express'),
 
 // validator
 const validator = joi.createValidator();
+const userValidators = require('../validators/users-validator');
+const scholarsValidators = require('../validators/scholars-validator');
 
 // controllers
 const usersCtrl = require('./users-controller');
+const scholarsCtrl = require('./scholars-controller');
+
+// middleware
+const auth = require('../middleware/auth');
 
 // users routes
-const userValidators = require('../validators/users-validator');
-
 router.post(
   '/users/login', 
   validator.body(userValidators.login),
@@ -21,6 +25,14 @@ router.post(
   '/users/register', 
   validator.body(userValidators.register),
   usersCtrl.register,
+);
+
+// scholars routes
+router.post(
+  '/scholars/create',
+  auth.verifyToken,
+  validator.body(scholarsValidators.create),
+  scholarsCtrl.createScholar,
 );
 
 module.exports = router;

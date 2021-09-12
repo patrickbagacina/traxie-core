@@ -31,7 +31,7 @@ module.exports.login = async (req) => {
   return Promise.resolve({
     user_id: manager._id,
     email: manager.email,
-    jwt: token
+    access_token: token
   });
 } 
 

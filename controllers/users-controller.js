@@ -20,6 +20,12 @@ module.exports.login = (req, res) => {
     })
     .catch(err => {
       console.log(`Error on login`, err);
+      res
+        .status(400)
+        .json({
+          message: 'Unexpected error',
+          code: 'UNKNOWN_ERROR',
+        });
     });
 }
 
@@ -43,5 +49,11 @@ module.exports.register = (req, res) => {
     })
     .catch(err => {
       console.log(`Error on register`, err);
+      res
+        .status(400)
+        .json({
+          message: 'Unexpected error',
+          code: 'UNKNOWN_ERROR',
+        });
     });
 }
