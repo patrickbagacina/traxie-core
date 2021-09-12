@@ -1,15 +1,38 @@
 const accountSvc = require('../services/user-service');
 
-const register = (req, res) => {
+module.exports.login = (req, res) => {
   accountSvc
-    .register(req.body)
-    .then((data, err) => {
-      if (err) {
+    .login(req.body)
+    .then((result) => {
+      if (result.error) {
         res
           .status(400)
           .json({
-            message: err.message,
-            name: err.name,
+            message: result.error.message,
+            code: result.error.code,
+          });
+      } else {
+        res.json({
+          status: 'OK',
+          data: result
+        });
+      }
+    })
+    .catch(err => {
+      console.log(`Error on login`, err);
+    });
+}
+
+module.exports.register = (req, res) => {
+  accountSvc
+    .register(req.body)
+    .then((result) => {
+      if (result.error) {
+        res
+          .status(400)
+          .json({
+            message: result.error.message,
+            code: result.error.code,
           });
       } else {
         res.json({
@@ -22,7 +45,3 @@ const register = (req, res) => {
       console.log(`Error on register`, err);
     });
 }
-
-module.exports = {
-  register,
-};

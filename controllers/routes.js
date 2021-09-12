@@ -10,6 +10,13 @@ const usersCtrl = require('./users-controller');
 
 // users routes
 const userValidators = require('../validators/users-validator');
+
+router.post(
+  '/users/login', 
+  validator.body(userValidators.login),
+  usersCtrl.login,
+);
+
 router.post(
   '/users/register', 
   validator.body(userValidators.register),
