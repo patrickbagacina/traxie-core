@@ -12,3 +12,31 @@ module.exports.create = Joi.object({
     .label('Percentage')
     .required(),
 });
+
+module.exports.delete = Joi.object({
+  id: Joi.string()
+    .label('ID')
+    .required(),
+});
+
+module.exports.list = Joi.object({
+  claimable: Joi.boolean()
+    .label('Claimable'),
+  startDate: Joi.string()
+    .label('Start Date'),
+  endDate: Joi.number()
+    .label('End Date'),
+});
+
+module.exports.update = Joi.object({
+  id: Joi.string()
+    .label('ID')
+    .required(),
+  name: Joi.string()
+    .label('Name')
+    .required(),
+  percentage: Joi.number()
+    .min(0)
+    .label('Percentage')
+    .required(),
+});

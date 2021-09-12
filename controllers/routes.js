@@ -35,4 +35,18 @@ router.post(
   scholarsCtrl.createScholar,
 );
 
+router.get(
+  '/scholars/list',
+  auth.verifyToken,
+  validator.query(scholarsValidators.list),
+  scholarsCtrl.listScholars,
+);
+
+router.post(
+  '/scholars/delete',
+  auth.verifyToken,
+  validator.body(scholarsValidators.delete),
+  scholarsCtrl.deleteScholar,
+);
+
 module.exports = router;
