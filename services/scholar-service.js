@@ -67,6 +67,8 @@ module.exports.sync = async (req) => {
   
         if (err) {
           scholars.push(err);
+          resolve();
+
           return;
         }
   
