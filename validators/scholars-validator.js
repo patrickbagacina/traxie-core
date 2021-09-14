@@ -28,6 +28,13 @@ module.exports.list = Joi.object({
     .label('End Date'),
 });
 
+module.exports.sync = Joi.object({
+  scholars: Joi.array()
+    .label('Scholars')
+    .min(1)
+    .required(),
+});
+
 module.exports.update = Joi.object({
   id: Joi.string()
     .label('ID')

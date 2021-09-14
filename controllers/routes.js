@@ -35,6 +35,13 @@ router.post(
   scholarsCtrl.createScholar,
 );
 
+router.post(
+  '/scholars/delete',
+  auth.verifyToken,
+  validator.body(scholarsValidators.delete),
+  scholarsCtrl.deleteScholar,
+);
+
 router.get(
   '/scholars/list',
   auth.verifyToken,
@@ -43,10 +50,17 @@ router.get(
 );
 
 router.post(
-  '/scholars/delete',
+  '/scholars/sync',
   auth.verifyToken,
-  validator.body(scholarsValidators.delete),
-  scholarsCtrl.deleteScholar,
+  validator.body(scholarsValidators.sync),
+  scholarsCtrl.sync,
+);
+
+router.post(
+  '/scholars/update',
+  auth.verifyToken,
+  validator.body(scholarsValidators.update),
+  scholarsCtrl.updateScholar,
 );
 
 module.exports = router;

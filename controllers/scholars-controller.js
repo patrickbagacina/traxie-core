@@ -91,6 +91,35 @@ module.exports.listScholars = (req, res) => {
     });
 }
 
+module.exports.sync = (req, res) => {
+  scholarSvc
+    .sync(req.body)
+    .then((result) => {
+      if (result.error) {
+        res
+          .status(400)
+          .json({
+            message: result.error.message,
+            code: result.error.code,
+          });
+      } else {
+        res.json({
+          status: 'OK',
+          data: result
+        });
+      }
+    })
+    .catch(err => {
+      console.log(`Error on scholar sync`, err);
+      res
+        .status(400)
+        .json({
+          message: 'Unexpected error',
+          code: 'UNKNOWN_ERROR',
+        });
+    });
+}
+
 module.exports.updateScholar = (req, res) => {
   scholarSvc
     .update(req.body)
