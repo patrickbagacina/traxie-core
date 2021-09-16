@@ -1,5 +1,34 @@
 const accountSvc = require('../services/user-service');
 
+module.exports.getMe = (req, res) => {
+  accountSvc
+    .getMe(req.user)
+    .then((result) => {
+      if (result.error) {
+        res
+          .status(400)
+          .json({
+            message: result.error.message,
+            code: result.error.code,
+          });
+      } else {
+        res.json({
+          status: 'OK',
+          data: result
+        });
+      }
+    })
+    .catch(err => {
+      console.log(`Error on getMe`, err);
+      res
+        .status(400)
+        .json({
+          message: 'Unexpected error',
+          code: 'UNKNOWN_ERROR',
+        });
+    });
+}
+
 module.exports.login = (req, res) => {
   accountSvc
     .login(req.body)
@@ -43,7 +72,7 @@ module.exports.register = (req, res) => {
       } else {
         res.json({
           status: 'OK',
-          data: data
+          data: result
         });
       }
     })

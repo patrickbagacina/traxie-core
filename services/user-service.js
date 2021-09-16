@@ -1,7 +1,32 @@
 const Manager = require('../models/manager');
+const Scholar = require('../models/scholar');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const saltRounds = 10;
+
+module.exports.getMe = async (user) => {
+  console.log(user)
+  if (user.type === 'MANAGER') {
+    const manager = await Manager.findById(user.user_id);
+
+    return {
+      user_id: manager._id,
+      email: manager.email,
+      scholars: manager.scholars,
+    };
+  } else if (user.type === 'SCHOLAR') {
+    const manager = await Scholar.findById(user.user_id);
+
+    return manager;
+  }
+
+  return Promise.resolve({
+    error: {
+      code: 'USER_NOT_FOUND',
+      message: 'User not found',
+    }
+  });
+}
 
 module.exports.login = async (req) => {
   const credError = {
@@ -22,7 +47,8 @@ module.exports.login = async (req) => {
   const token = jwt.sign(
     { 
       user_id: manager._id, 
-      email: manager.email
+      email: manager.email,
+      type: 'MANAGER',
     },
     process.env.JWT_KEY,
     { expiresIn: '2h' }

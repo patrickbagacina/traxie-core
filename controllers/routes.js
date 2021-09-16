@@ -15,6 +15,12 @@ const scholarsCtrl = require('./scholars-controller');
 const auth = require('../middleware/auth');
 
 // users routes
+router.get(
+  '/users/me',
+  auth.verifyToken,
+  usersCtrl.getMe,
+);
+
 router.post(
   '/users/login', 
   validator.body(userValidators.login),
